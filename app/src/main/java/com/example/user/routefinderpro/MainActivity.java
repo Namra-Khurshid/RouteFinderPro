@@ -1,23 +1,77 @@
 package com.example.user.routefinderpro;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.LocationManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import permission.auron.com.marshmallowpermissionhelper.ActivityManagePermission;
+import permission.auron.com.marshmallowpermissionhelper.PermissionResult;
+import permission.auron.com.marshmallowpermissionhelper.PermissionUtils;
 
+public class MainActivity extends ActivityManagePermission {
+
+    Button my_location, route_finder,nearby_places,compass ;
+    boolean flag= false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button my_location = (Button) findViewById(R.id.button1);
-        Button route_finder = (Button) findViewById(R.id.button2);
-        Button nearby_places = (Button) findViewById(R.id.button3);
-        Button compass = (Button) findViewById(R.id.button4);
+        my_location = (Button) findViewById(R.id.button1);
+        route_finder = (Button) findViewById(R.id.button2);
+        nearby_places = (Button) findViewById(R.id.button3);
+        compass = (Button) findViewById(R.id.button4);
+        if (flag==true)
+        {
+            statusCheck();
+        }
 
-        startService(new Intent(this, LocationService.class));
+        String permissionAsk[] = {PermissionUtils.Manifest_ACCESS_FINE_LOCATION};
+        askCompactPermissions(permissionAsk, new PermissionResult() {
+            @Override
+            public void permissionGranted() {
+                flag = true;
+                statusCheck();
+                initiateview();
+            }
+
+            @Override
+            public void permissionDenied() {
+                Toast.makeText(MainActivity.this, "Application might not run without this permission", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void permissionForeverDenied() {
+                SinglePermissionDialog();
+            }
+        });
+
+    }
+
+    private void SinglePermissionDialog() {
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(MainActivity.this, R.style.AppCompatAlertDialogStyle);
+        builder.setTitle(R.string.attention);
+        builder.setMessage(R.string.message_single_perm);
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                openSettingsApp(MainActivity.this);
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, null);
+        builder.show();
+    }
+
+
+    public void initiateview()
+    {
 
         my_location.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +107,33 @@ public class MainActivity extends AppCompatActivity {
         });
 
         startService(new Intent(this, LocationService.class));
+    }
+    public void statusCheck() {
+        final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildAlertMessageNoGps();
+
+        }
+        else initiateview();
+    }
+
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                        initiateview();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
     }
 }

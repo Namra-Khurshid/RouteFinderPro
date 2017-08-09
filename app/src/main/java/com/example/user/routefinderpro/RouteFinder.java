@@ -115,7 +115,7 @@ public class RouteFinder extends AppCompatActivity  {
 
             p1 = new Barcode.GeoPoint((double) (location.getLatitude() * 1E6),
                     (double) (location.getLongitude() * 1E6));
-              Latitude = location.getLatitude();
+             Latitude = location.getLatitude();
              Longitude = location.getLongitude();
              fromPostion = new LatLng(Latitude,Longitude);
         System.out.println("Position"+location.getLatitude()+","+location.getLongitude());
