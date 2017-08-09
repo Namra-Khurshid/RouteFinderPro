@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+    <item
+        android:id="@+id/itemViewSubMenu"
+        android:icon="@mipmap/ic_menu_black_24dp"
+        android:title="Menu"
+        app:showAsAction="always">
+
+            <item
+                android:id="@+id/normalMap"
+                android:title="Normal Map"/>
+            <item android:title="Satellite Map"
+                android:id="@+id/satelliteMap" />
+            <item
+                android:id="@+id/hybridMap"
+                android:title="Hybird Map"/>
+            <item android:title="Terrain Map"
+                android:id="@+id/terrainMap" />
+            <item
+                android:id="@+id/itemViewexit"
+                android:title="Exit"/>
+    </item>
+
+</menu>

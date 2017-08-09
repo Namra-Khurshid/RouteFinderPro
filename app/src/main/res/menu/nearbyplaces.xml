@@ -1,0 +1,33 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+    <item
+        android:id="@+id/itemViewSubMenu"
+        android:icon="@mipmap/ic_menu_black_24dp"
+        android:title="Menu"
+        app:showAsAction="always">
+            <item
+                android:id="@+id/restaurants"
+                android:title="Restaurants"/>
+            <item android:title="Hospitals"
+                android:id="@+id/hospitals" />
+            <item
+                android:id="@+id/schools"
+                android:title="Schools"/>
+             <item
+                android:id="@+id/banks"
+                android:title="Banks"/>
+             <item
+                android:id="@+id/airport"
+                android:title="Airports"/>
+             <item
+                android:id="@+id/mosques"
+                android:title="Mosques"/>
+             <item
+                android:id="@+id/atm"
+                 android:title="ATM"/>
+               <item
+            android:id="@+id/itemViewexit"
+            android:title="Exit"/>
+    </item>
+
+</menu>
