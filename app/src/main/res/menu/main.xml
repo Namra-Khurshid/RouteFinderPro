@@ -1,0 +1,27 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+    <item
+        android:id="@+id/itemViewSubMenu"
+        android:icon="@mipmap/ic_menu_black_24dp"
+        android:title="Menu"
+        app:showAsAction="always">
+
+            <item
+                android:id="@+id/rate"
+                android:title="Rate"/>
+            <item android:title="Share"
+                android:id="@+id/share" />
+            <item
+            android:id="@+id/more"
+            android:title="More Apps"/>
+            <item
+                android:id="@+id/feedback"
+                android:title="Feedback"/>
+            <item android:title="Privacy Policy"
+                android:id="@+id/privacy" />
+            <item
+                android:id="@+id/itemViewexit"
+                android:title="Exit"/>
+    </item>
+
+</menu>

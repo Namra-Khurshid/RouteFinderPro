@@ -1,10 +1,12 @@
 package com.example.user.routefinderpro;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.method.TextKeyListener;
 import android.util.Log;
 import android.view.Display;
@@ -25,77 +27,84 @@ import java.io.IOException;
 import java.util.List;
 
 public class RouteFinder extends AppCompatActivity  {
-     String from, to;
-     Double Latitude, Longitude, Latitudeto, LongitudeTo;
-     LatLng fromPostion, toPosition;
+    String from, to;
+    Double Latitude, Longitude, Latitudeto, LongitudeTo;
+    LatLng fromPostion, toPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route_finder);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar3);
+        toolbar.setTitle("Route Finder");
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.inflateMenu(R.menu.nearbyplaces);
+        setSupportActionBar(toolbar);
         Button routefinder = (Button) findViewById(R.id.button5);
         routefinder.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (from != null && to != null) {
-                        Intent i = new Intent(RouteFinder.this, DisplayRoute.class);
-                        i.putExtra("latitudefrom", Latitude);
-                        i.putExtra("longitudefrom", Longitude);
-                        i.putExtra("latitudeto", Latitudeto);
-                        i.putExtra("longitudeto", LongitudeTo);
-                        startActivity(i);
-                    } else
-                        Toast.makeText(RouteFinder.this, "Enter Location", Toast.LENGTH_SHORT).show();
-                }
-            });
-            PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
-            AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
-                    .setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS)
-                    .build();
-            autocompleteFragment.setFilter(typeFilter);
+            @Override
+            public void onClick(View v) {
+                if (from != null && to != null) {
+                    Intent i = new Intent(RouteFinder.this, DisplayRoute.class);
+                    i.putExtra("latitudefrom", Latitude);
+                    i.putExtra("longitudefrom", Longitude);
+                    i.putExtra("latitudeto", Latitudeto);
+                    i.putExtra("longitudeto", LongitudeTo);
+                    i.putExtra("From", from);
+                    i.putExtra("To", to);
+                    startActivity(i);
+                } else
+                    Toast.makeText(RouteFinder.this, "Enter Location", Toast.LENGTH_SHORT).show();
+            }
+        });
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+        AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
+                .setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS)
+                .build();
+        autocompleteFragment.setFilter(typeFilter);
 
-            autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-                @Override
-                public void onPlaceSelected(Place place) {
-                    // TODO: Get info about the selected place.
-                    from = String.valueOf(place.getName());
-                    Log.i("Place", "From: " + place.getName());//get place details here
-                    try {
-                        getLocationFromAddress(from);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO: Get info about the selected place.
+                from = String.valueOf(place.getAddress());
+                Log.i("Place", "From: " + place.getAddress());//get place details here
+                try {
+                    getLocationFromAddress(from);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+            }
 
-                @Override
-                public void onError(Status status) {
-                    // TODO: Handle the error.
-                    Log.i("Error", "An error occurred: " + status);
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i("Error", "An error occurred: " + status);
+            }
+        });
+
+        PlaceAutocompleteFragment autocompleteFragment1 = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment1);
+
+        autocompleteFragment1.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO: Get info about the selected place.
+                to = String.valueOf(place.getAddress());
+                Log.i("Place", "To: " + place.getAddress());//get place details here
+                try {
+                    getLocationToAddress(to);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            });
+            }
 
-            PlaceAutocompleteFragment autocompleteFragment1 = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment1);
-
-            autocompleteFragment1.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-                @Override
-                public void onPlaceSelected(Place place) {
-                    // TODO: Get info about the selected place.
-                    to = String.valueOf(place.getName());
-                    Log.i("Place", "To: " + place.getName());//get place details here
-                    try {
-                        getLocationToAddress(to);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onError(Status status) {
-                    // TODO: Handle the error.
-                    Log.i("Error", "An error occurred: " + status);
-                }
-            });
-        }
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i("Error", "An error occurred: " + status);
+            }
+        });
+    }
 
 
 
@@ -105,22 +114,22 @@ public class RouteFinder extends AppCompatActivity  {
         List<Address> address;
         Barcode.GeoPoint p1 = null;
 
-            address = coder.getFromLocationName(strAddress,5);
-            if (address==null) {
-                return null;
-            }
-            Address location=address.get(0);
-            location.getLatitude();
-            location.getLongitude();
+        address = coder.getFromLocationName(strAddress,5);
+        if (address==null) {
+            return null;
+        }
+        Address location=address.get(0);
+        location.getLatitude();
+        location.getLongitude();
 
-            p1 = new Barcode.GeoPoint((double) (location.getLatitude() * 1E6),
-                    (double) (location.getLongitude() * 1E6));
-             Latitude = location.getLatitude();
-             Longitude = location.getLongitude();
-             fromPostion = new LatLng(Latitude,Longitude);
+        p1 = new Barcode.GeoPoint((double) (location.getLatitude() * 1E6),
+                (double) (location.getLongitude() * 1E6));
+        Latitude = location.getLatitude();
+        Longitude = location.getLongitude();
+        fromPostion = new LatLng(Latitude,Longitude);
         System.out.println("Position"+location.getLatitude()+","+location.getLongitude());
 
-            return p1;
+        return p1;
 
     }
 

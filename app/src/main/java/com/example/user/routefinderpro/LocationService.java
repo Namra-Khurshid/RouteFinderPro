@@ -74,10 +74,10 @@ public class LocationService extends Service implements LocationListener, Google
 
     @Override
     public void onLocationChanged(Location location) {
-           Log.d(TAG, "Firing onLocationChanged..............................................");
-           curentlocation = location;
-           Log.d(TAG, "onLocationChanged ..............: "+curentlocation.getLatitude());
-           Log.d(TAG, "onLocationChanged ..............: "+curentlocation.getLongitude());
+        Log.d(TAG, "Firing onLocationChanged..............................................");
+        curentlocation = location;
+        Log.d(TAG, "onLocationChanged ..............: "+curentlocation.getLatitude());
+        Log.d(TAG, "onLocationChanged ..............: "+curentlocation.getLongitude());
     }
 
     @Override

@@ -38,7 +38,8 @@
             android:label="@string/title_activity_my_location" />
         <activity android:name=".RouteFinder" />
         <activity android:name=".DisplayRoute" />
-        <activity android:name=".NearbyPlaces"></activity>
+        <activity android:name=".NearbyPlaces" />
+        <activity android:name=".NavigationActivity"></activity>
     </application>
 
 </manifest>

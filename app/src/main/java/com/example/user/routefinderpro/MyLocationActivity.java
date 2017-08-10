@@ -69,20 +69,20 @@ public class MyLocationActivity extends AppCompatActivity implements OnMapReadyC
             return;
         }
         try{
-        addressList=geocoder.getFromLocation(locationService.curentlocation.getLatitude(), locationService.curentlocation.getLongitude(),1);
+            addressList=geocoder.getFromLocation(locationService.curentlocation.getLatitude(), locationService.curentlocation.getLongitude(),1);
 
             if (addressList != null && addressList.size() > 0) {
-            String locality = addressList.get(0).getFeatureName() + ", " + addressList.get(0).getLocality() +", " + addressList.get(0).getAdminArea();
-            String country = addressList.get(0).getCountryName();
-            if (!locality.isEmpty() && !country.isEmpty()){
-                address = locality + "  " + country;}
+                String locality = addressList.get(0).getFeatureName() + ", " + addressList.get(0).getLocality() +", " + addressList.get(0).getAdminArea();
+                String country = addressList.get(0).getCountryName();
+                if (!locality.isEmpty() && !country.isEmpty()){
+                    address = locality + "  " + country;}
+            }
+            else address = "Address not found";
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        else address = "Address not found";
-
-
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMapToolbarEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
@@ -111,7 +111,7 @@ public class MyLocationActivity extends AppCompatActivity implements OnMapReadyC
                         String country = addressList.get(0).getCountryName();
                         if (!locality.isEmpty() && !country.isEmpty()){
                             address = locality + "  " + country;}
-                            marker.setTitle(address);
+                        marker.setTitle(address);
                     }
                     else {
                         address = "Address not found";
@@ -154,7 +154,7 @@ public class MyLocationActivity extends AppCompatActivity implements OnMapReadyC
         alert.show();
     }
 
-@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.mylocation, menu);
         mainMenu = menu;
@@ -197,6 +197,3 @@ public class MyLocationActivity extends AppCompatActivity implements OnMapReadyC
 
 
 }
-
-
-
