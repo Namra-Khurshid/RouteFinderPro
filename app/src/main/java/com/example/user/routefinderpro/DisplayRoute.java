@@ -14,8 +14,13 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -47,19 +52,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class DisplayRoute extends FragmentActivity implements OnMapReadyCallback{
+public class DisplayRoute extends AppCompatActivity implements OnMapReadyCallback{
 
     LatLng origin, dest;
     private GoogleMap mMap;
     String from, to;
+    Menu mainMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_location);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar2);
         toolbar.setTitle("Route Finder");
         toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.inflateMenu(R.menu.mylocation);
+        setSupportActionBar(toolbar);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         Bundle extras = getIntent().getExtras();
         double latitudefrom = extras.getDouble("latitudefrom");
@@ -77,6 +86,53 @@ public class DisplayRoute extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mylocation, menu);
+        mainMenu = menu;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.normalMap: {
+                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+            }
+            break;
+            case R.id.hybridMap: {
+                mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+            }
+            break;
+            case R.id.terrainMap: {
+                mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+            }
+            break;
+            case R.id.satelliteMap: {
+                mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+            }
+            break;
+            case R.id.itemViewexit:
+                finish();
+                break;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onKeyUp(int keycode, KeyEvent e) {
+        switch (keycode) {
+            case android.view.KeyEvent.KEYCODE_MENU:
+                if (mainMenu != null) {
+                    mainMenu.performIdentifierAction(R.id.itemViewSubMenu, 0);
+                }
+        }
+
+        return super.onKeyUp(keycode, e);
+    }
+
+
 
 
     @Override
@@ -97,6 +153,8 @@ public class DisplayRoute extends FragmentActivity implements OnMapReadyCallback
         //move map camera
 
     }
+
+
 
     private String getUrl(LatLng origin, LatLng dest) {
 

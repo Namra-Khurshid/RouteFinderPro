@@ -11,6 +11,7 @@ import android.text.method.TextKeyListener;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -35,10 +36,10 @@ public class RouteFinder extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route_finder);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar3);
         toolbar.setTitle("Route Finder");
         toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.inflateMenu(R.menu.nearbyplaces);
         setSupportActionBar(toolbar);
         Button routefinder = (Button) findViewById(R.id.button5);
         routefinder.setOnClickListener(new View.OnClickListener() {

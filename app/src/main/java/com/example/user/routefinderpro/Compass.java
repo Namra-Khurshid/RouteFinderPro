@@ -1,18 +1,21 @@
 package com.example.user.routefinderpro;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 
-public class Compass extends Activity implements SensorEventListener {
+public class Compass extends AppCompatActivity implements SensorEventListener {
 	/** Called when the activity is first created. */
 	private TextView txtDegrees;
 	private ImageView imgCompass;
@@ -23,6 +26,11 @@ public class Compass extends Activity implements SensorEventListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.compass);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar3);
+		toolbar.setTitle("Route Finder");
+		toolbar.setTitleTextColor(Color.WHITE);
+		setSupportActionBar(toolbar);
 		imgCompass = (ImageView) findViewById(R.id.imgCompass);
 		txtDegrees = (TextView) findViewById(R.id.txtDegrees);
 		sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);

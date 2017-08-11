@@ -28,7 +28,7 @@ public class LocationService extends Service implements LocationListener, Google
 
     private static final String TAG = LocationService.class.getSimpleName();
     private static final long INTERVAL = 1000 * 10;
-    private static final long FASTEST_INTERVAL = 1000 * 5;
+    private static final long FASTEST_INTERVAL = 1000 * 10;
     LocationRequest locationRequest;
     GoogleApiClient googleApiClient;
     public static Location curentlocation;

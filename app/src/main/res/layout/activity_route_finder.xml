@@ -8,17 +8,11 @@
         android:id="@+id/toolbar3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.1"
-        android:background="?attr/colorPrimary"
+        android:layout_weight="0.3"
+        android:background="@color/toolbar"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
+        android:theme="@style/Toolbar"
         />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:orientation="horizontal"></LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -81,10 +75,13 @@
         android:layout_weight="0.1">
 
         <Button
+            android:background="@color/buttons"
             android:id="@+id/button5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Find Best Route"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
             android:textSize="20dp"/>
     </LinearLayout>
 

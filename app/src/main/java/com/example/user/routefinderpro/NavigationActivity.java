@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ public class NavigationActivity extends AppCompatActivity {
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         setContentView(R.layout.activity_navigation);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar5);
         toolbar.setTitle("Route Finder");
         toolbar.setTitleTextColor(Color.WHITE);
@@ -63,8 +65,8 @@ public class NavigationActivity extends AppCompatActivity {
     protected void getCurrentLocation() throws Exception {
             lat = locationService.curentlocation.getLatitude();
             lng = locationService.curentlocation.getLongitude();
-            Toast.makeText(getApplicationContext(), "Your Location is:\nLat: " + lat + "\nLong: " + lng,
-                    Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), "Your Location is:\nLat: " + lat + "\nLong: " + lng,
+//                    Toast.LENGTH_LONG).show();
     }
     public void statusCheck() {
         final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

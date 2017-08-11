@@ -6,72 +6,113 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.user.routefinderpro.MainActivity"
-    android:weightSum="6">
+    android:weightSum="6"
+    xmlns:ads="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@color/toolbar"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        android:layout_weight="0.1"/>
+        android:theme="@style/Toolbar"
+        android:layout_weight="0.4"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_weight="0.1"
+        android:layout_weight="1"
         android:weightSum="1">
 
         <Button
             android:id="@+id/button3"
+            android:background="@color/buttons"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:text="Nearby Places"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:textAllCaps="false" />
+        <Button
+            android:background="@color/buttons"
+            android:id="@+id/button6"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:text="   Navigation"
             android:textAllCaps="false" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="Route Finder"
-            android:textAllCaps="false" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_weight="0.1"
+        android:layout_weight="1"
         android:weightSum="1">
 
         <Button
+            android:background="@color/buttons"
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:text="  Route Finder"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:textAllCaps="false" />
+        <Button
+            android:background="@color/buttons"
             android:id="@+id/button4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:text="Compass"
+            android:text="   Compass"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
             android:textAllCaps="false" />
 
-        <Button
-            android:id="@+id/button6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="Navigation" />
+
     </LinearLayout>
 
-
-    <Button
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="3">
+        <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="34dp"
         android:text="My Location"
         android:textAllCaps="false"
-        android:visibility="gone"/>
+        android:visibility="gone"/></LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <com.google.android.gms.ads.NativeExpressAdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="320x150"
+            ads:adUnitId="@string/ad_unit_id" />
+    </LinearLayout>
 
 </LinearLayout>

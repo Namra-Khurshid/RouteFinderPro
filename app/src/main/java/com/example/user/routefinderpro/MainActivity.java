@@ -15,8 +15,14 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.NativeExpressAdView;
 
 import permission.auron.com.marshmallowpermissionhelper.ActivityManagePermission;
 import permission.auron.com.marshmallowpermissionhelper.PermissionResult;
@@ -27,11 +33,16 @@ public class MainActivity extends ActivityManagePermission {
     Button my_location, route_finder,nearby_places,compass, navigation ;
     boolean flag= false;
     Menu mainMenu;
+    private InterstitialAd mInterstitialAd;
     public static String mailSource = "toptrendinggames2016@gmail.com";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar4);
         toolbar.setTitle("Route Finder");
         toolbar.setTitleTextColor(Color.WHITE);
@@ -43,6 +54,7 @@ public class MainActivity extends ActivityManagePermission {
         compass = (Button) findViewById(R.id.button4);
         navigation = (Button) findViewById(R.id.button6);
         my_location.setVisibility(View.INVISIBLE);
+        NativeAd();
         if (flag==true)
         {
             statusCheck();
@@ -197,8 +209,23 @@ public class MainActivity extends ActivityManagePermission {
         navigation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, NavigationActivity.class);
-                startActivity(i);
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                    mInterstitialAd.setAdListener(new AdListener() {
+                        @Override
+                        public void onAdClosed() {
+                            super.onAdClosed();
+                            Intent i = new Intent(MainActivity.this, NavigationActivity.class);
+                            startActivity(i);
+                        }
+                    });
+                } else {
+                    Intent i = new Intent(MainActivity.this, NavigationActivity.class);
+                    startActivity(i);
+                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+                }
+//                Intent i = new Intent(MainActivity.this, NavigationActivity.class);
+//                startActivity(i);
             }
         });
 
@@ -231,5 +258,9 @@ public class MainActivity extends ActivityManagePermission {
                 });
         final AlertDialog alert = builder.create();
         alert.show();
+    }
+    public void NativeAd() {
+        NativeExpressAdView adView = (NativeExpressAdView) findViewById(R.id.adView);
+        adView.loadAd(new AdRequest.Builder().build());
     }
 }

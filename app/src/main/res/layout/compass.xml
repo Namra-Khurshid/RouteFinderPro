@@ -1,20 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:gravity="center"
-	android:orientation="vertical" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:weightSum="4">
 
-	<TextView
-		android:id="@+id/txtDegrees"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content" />
-
-	<ImageView
-		android:id="@+id/imgCompass"
-		android:layout_width="wrap_content"
+	<android.support.v7.widget.Toolbar
+		android:id="@+id/toolbar3"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_below="@+id/txtDegrees"
-		android:src="@drawable/compasss" />
+		android:layout_weight="0.3"
+		android:background="@color/toolbar"
+		android:minHeight="?attr/actionBarSize"
+		android:theme="@style/Toolbar"
+		/>
 
-</RelativeLayout>
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="4"
+		android:weightSum="2">
+
+		<TextView
+            android:id="@+id/txtDegrees"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+			android:layout_weight="0.1"/>
+
+		<ImageView
+            android:id="@+id/imgCompass"
+			android:layout_width="match_parent"
+            android:layout_height="485dp"
+            android:layout_below="@+id/txtDegrees"
+            android:src="@drawable/compasss"
+			android:layout_weight="2" />
+	</LinearLayout>
+
+</LinearLayout>
