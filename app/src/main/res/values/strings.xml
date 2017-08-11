@@ -11,4 +11,14 @@
     <string name="message_single_perm">Do you want to uninstall Buddy Tracker?</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
+    <string name="share_app">Hi,JK Apps 2017 has provided Free Tools, Games and
+     other Entertainment material. Recently, I have come across for Makeup Beauty Application
+     and found it extremely useful.\n
+    To get it, follow this link: \n</string>
+    <string name="optin_message">Do you agree with required terms and conditions?</string>
+    <string name="optin_yesbtn">Ok</string>
+    <string name="optin_text">JK Apps provides Free Tools, Games, and Entertainment material mostly in the form of Apps for mobile devices. JK apps respects the privacy of the users of all her Applications (Apps) especially their personal information such as contacts, photos, videos, textual messages or other saved contents throughout the lifetime of the App usage. According to this policy Women Fashion Photo Editor does not collect, store, process or transmit any personal information outside the device on which the App is installed beyond the stated and publicly declared functions of any Apps. Moreover, this photo editor does not share users’ personal information with other Apps, devices, profiles or third party even on the device on which App is installed for any reason whatsoever.</string>
+    <string name="detailed_text">For more detail visit our</string>
+    <string name="link_text">Website</string>
+    <string name="optin_agree_text">Yes I agree</string>
 </resources>

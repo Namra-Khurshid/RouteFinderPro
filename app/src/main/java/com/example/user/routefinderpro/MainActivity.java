@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ public class MainActivity extends ActivityManagePermission {
     Button my_location, route_finder,nearby_places,compass, navigation ;
     boolean flag= false;
     Menu mainMenu;
+    public static String mailSource = "toptrendinggames2016@gmail.com";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,14 +80,47 @@ public class MainActivity extends ActivityManagePermission {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.rate:
+            {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://play.google.com/store/apps/details?id=" + getApplicationContext().getPackageName()));
+                startActivity(browserIntent);
+            }
             break;
             case R.id.share:
+            {
+                String playStoreLink = "https://play.google.com/store/apps/details?id=" + getApplicationContext().getPackageName();
+                String yourShareText = getApplicationContext().getResources().getString(R.string.share_app) + playStoreLink;
+                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Share It");
+                intent.putExtra(Intent.EXTRA_TEXT, yourShareText);
+                startActivity(Intent.createChooser(intent, "Share App!"));
+            }
             break;
             case R.id.more:
+            {
+                Uri uri = Uri.parse("https://play.google.com/store/apps/dev?id=4854990210404955584&hl=en");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
             break;
             case R.id.feedback:
+            {
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                emailIntent.setType("vnd.android.cursor.item/email");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{mailSource});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
+                startActivity(Intent.createChooser(emailIntent, "Send mail using..."));
+
+            }
             break;
             case R.id.privacy:
+            {
+                privacyPolicy dialogFragment = new privacyPolicy();
+                android.app.FragmentManager fm = getFragmentManager();
+                dialogFragment.show(fm, "");
+            }
             break;
             case R.id.itemViewexit:
                 finish();

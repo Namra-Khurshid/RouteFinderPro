@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/instruction_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="15dp"
+        android:text="@string/optin_text"
+        android:textSize="14sp" />
+
+    <RelativeLayout
+        android:id="@+id/link_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/instruction_tv">
+
+        <TextView
+            android:id="@+id/agree_link_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:text="@string/detailed_text"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/link_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimary"
+            android:layout_toRightOf="@+id/agree_link_tv"
+            android:textStyle="bold"
+            android:text="@string/link_text" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:visibility="gone"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/link_container">
+
+        <TextView
+            android:id="@+id/agree_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:text="@string/optin_agree_text"
+            android:textSize="14sp" />
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/agreement_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:checked="false"
+            android:layout_toRightOf="@+id/agree_tv"
+            app:buttonTint="@color/colorAccent" />
+    </RelativeLayout>
+</RelativeLayout>
